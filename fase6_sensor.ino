@@ -217,11 +217,25 @@ void loop() {
   if (M5.BtnA.wasPressed())
   {
     sensor.SetPotValue(sensor.GetPotValue() + 1);
+
+    // Notificamos el cambio.
+    String data = DoSerial(sensor.GetSensorValue(), sensor.GetPotValue(), sensor.GetAlarm());
+    pCharacteristic->setValue(data.c_str());
+    pCharacteristic->notify();
+
+    // Refrescamos la información en la pantalla.
     UpdateLCD(sensor);
   }
   if (M5.BtnB.wasPressed())
   {
     sensor.SetPotValue(sensor.GetPotValue() - 1);
+
+    // Notificamos el cambio.
+    String data = DoSerial(sensor.GetSensorValue(), sensor.GetPotValue(), sensor.GetAlarm());
+    pCharacteristic->setValue(data.c_str());
+    pCharacteristic->notify();
+
+    // Refrescamos la información en la pantalla.
     UpdateLCD(sensor);
   }
   if (M5.BtnC.pressedFor(2000))
